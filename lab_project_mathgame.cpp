@@ -32,11 +32,22 @@ vector<PlayerRecord> leaderboard;
 
 // Generate Random Number
 int randomInt(int low, int high) {
-    
+    uniform_int_distribution<int> dist(low, high);
+    return dist(rng);
+
 }
 
 // Input Validation
 int readInteger() {
+    int value;
+
+    while (!(cin >> value)) {
+        cout << "Invalid input! Enter a number: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    return value;
 
 }
 
