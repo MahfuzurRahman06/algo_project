@@ -53,7 +53,51 @@ int readInteger() {
 
 // Generate Question
 Question generateQuestion(int difficulty) {
-    
+    int low, high;
+
+    if (difficulty == 1) {
+        low = 1;
+        high = 10;
+    }
+    else if (difficulty == 2) {
+        low = 10;
+        high = 50;
+    }
+    else {
+        low = 20;
+        high = 100;
+    }
+
+    Question q;
+
+    q.op = "+-*/"[randomInt(0, 3)];
+
+    q.num1 = randomInt(low, high);
+    q.num2 = randomInt(low, high);
+
+    if (q.op == '+') {
+        q.answer = q.num1 + q.num2;
+    }
+    else if (q.op == '-') {
+
+        if (q.num1 < q.num2) {
+            swap(q.num1, q.num2);
+        }
+
+        q.answer = q.num1 - q.num2;
+    }
+    else if (q.op == '*') {
+        q.answer = q.num1 * q.num2;
+    }
+    else {
+        // Exact Division
+        q.num2 = randomInt(1, high);
+        q.answer = randomInt(1, high);
+        q.num1 = q.num2 * q.answer;
+    }
+
+    return q;
+
 }
 
 
