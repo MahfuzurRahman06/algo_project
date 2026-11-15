@@ -125,7 +125,130 @@ void showInstructions() {
 //Coded by Riyad from here 
 // Play Game
 void playGame() {
-    
+    string name;
+    int difficulty;
+
+    cout << "\nEnter Player Name: ";
+    cin >> ws;
+    getline(cin, name);
+
+    if (name.empty()) {
+        cout << "Name cannot be empty!\n";
+        return;
+    }
+
+    cout << "\nSelect Difficulty\n";
+    cout << "1. Easy\n";
+    cout << "2. Medium\n";
+    cout << "3. Hard\n";
+
+    cout << "Enter Choice: ";
+    difficulty = readInteger();
+
+    while (difficulty < 1 || difficulty > 3) {
+        cout << "Invalid choice! Select 1, 2 or 3: ";
+        difficulty = readInteger();
+    }
+
+    int score = 0;
+    int correct = 0;
+    int wrong = 0;
+
+    stack<Question> history;
+
+    cout << "\n========== GAME START ==========\n";
+
+    // Question Loop
+    for (int i = 1; i <= TOTAL_QUESTIONS; i++) {
+
+        Question q = generateQuestion(difficulty);
+
+        history.push(q);
+
+        cout << "\nQuestion " << i << " / " << TOTAL_QUESTIONS << "\n";
+
+        cout << q.num1 << " " << q.op << " " << q.num2 << " = ?\n";
+
+        cout << "Your Answer: ";
+
+        int userAnswer = readInteger();
+
+        if (userAnswer == q.answer) {
+
+            cout << "Correct Answer!\n";
+
+            score += CORRECT_POINTS;
+            correct++;
+        }
+        else {
+
+            cout << "Wrong Answer!\n";
+
+            cout << "Correct Answer: " << q.answer << "\n";
+
+            score -= WRONG_PENALTY;
+
+            if (score < 0) {
+                score = 0;
+            }
+
+            wrong++;
+        }
+
+        cout << "Current Score: " << score << "\n";
+    }
+
+    // Performance Report
+    double accuracy = (correct * 100.0) / TOTAL_QUESTIONS;
+
+    cout << "\n========== GAME RESULT ==========\n";
+
+    cout << "Player Name: " << name << "\n";
+    cout << "Total Questions: " << TOTAL_QUESTIONS << "\n";
+    cout << "Correct Answers: " << correct << "\n";
+    cout << "Wrong Answers: " << wrong << "\n";
+    cout << "Final Score: " << score << "\n";
+
+    cout << fixed << setprecision(2);
+    cout << "Accuracy: " << accuracy << "%\n";
+
+    if (score >= WINNING_SCORE) {
+        cout << "\nCongratulations! YOU WIN!\n";
+    }
+    else {
+        cout << "\nBetter Luck Next Time!\n";
+    }
+
+    // Question History using Stack
+    cout << "\n========== QUESTION HISTORY ==========\n";
+
+    stack<Question> temp = history;
+
+    int count = TOTAL_QUESTIONS;
+
+    while (!temp.empty()) {
+
+        Question q = temp.top();
+
+        cout << "Question " << count << ": " << q.num1 << " " << q.op
+             << " " << q.num2
+             << " = " << q.answer << "\n";
+
+        temp.pop();
+        count--;
+    }
+
+    // Save Player Record
+    PlayerRecord player;
+
+    player.name = name;
+    player.score = score;
+    player.correct = correct;
+    player.wrong = wrong;
+
+    leaderboard.push_back(player);
+
+    cout << "\nYour result has been added to Leaderboard!\n";
 }
 // Show Leaderboard
 void showLeaderboard() {
