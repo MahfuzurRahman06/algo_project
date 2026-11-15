@@ -259,7 +259,25 @@ void showLeaderboard() {
 //Coded by Tahmid from here
 // Main Menu
 void showMenu() {
-    
+    int choice;
+
+    while (true) {
+
+        cout << "\n================================\n";
+        cout << "        MATH CHALLENGE\n";
+        cout << "================================\n";
+
+        cout << "1. Start Game\n";
+        cout << "2. Leaderboard\n";
+        cout << "3. Instructions\n";
+        cout << "4. Exit\n";
+
+        cout << "Enter Choice: ";
+
+        choice = readInteger();
+        
+    }
+
 }
 
 // Main Function
