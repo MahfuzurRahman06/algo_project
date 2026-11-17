@@ -115,23 +115,84 @@ Question generateQuestion(int difficulty)
 // Merge Function
 void merge(vector<PlayerRecord> &arr, int left, int mid, int right)
 {
+    vector<PlayerRecord> temp;
+
+    int i = left;
+    int j = mid + 1;
+
+    while (i <= mid && j <= right)
+    {
+
+        if (arr[i].score > arr[j].score ||
+            (arr[i].score == arr[j].score &&
+             arr[i].correct >= arr[j].correct))
+        {
+
+            temp.push_back(arr[i]);
+            i++;
+        }
+        else
+        {
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+
+    while (i <= mid)
+    {
+        temp.push_back(arr[i]);
+        i++;
+    }
+
+    while (j <= right)
+    {
+        temp.push_back(arr[j]);
+        j++;
+    }
+
+    for (int k = 0; k < (int)temp.size(); k++)
+    {
+        arr[left + k] = temp[k];
+    }
 }
 // Merge Sort
 void mergeSort(vector<PlayerRecord> &arr, int left, int right)
 {
+
+    if (left >= right)
+    {
+        return;
+    }
+
+    int mid = left + (right - left) / 2;
+
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+
+    merge(arr, left, mid, right);
 }
 
 // Linear Search
 int linearSearch(const vector<PlayerRecord> &arr, string target)
 {
+    for (int i = 0; i < (int)arr.size(); i++)
+    {
+
+        if (arr[i].name == target)
+        {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
+// Coded by Riyad from here
 // Show Instructions
 void showInstructions()
 {
 }
 
-// Coded by Riyad from here
 //  Play Game
 void playGame()
 {
@@ -295,6 +356,7 @@ void showMenu()
         cout << "Enter Choice: ";
 
         choice = readInteger();
+      
         switch (choice)
         {
 
