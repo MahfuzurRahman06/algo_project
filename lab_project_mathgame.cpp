@@ -158,19 +158,41 @@ void merge(vector<PlayerRecord> &arr, int left, int mid, int right)
 // Merge Sort
 void mergeSort(vector<PlayerRecord> &arr, int left, int right)
 {
+
+    if (left >= right)
+    {
+        return;
+    }
+
+    int mid = left + (right - left) / 2;
+
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+
+    merge(arr, left, mid, right);
 }
 
 // Linear Search
 int linearSearch(const vector<PlayerRecord> &arr, string target)
 {
+    for (int i = 0; i < (int)arr.size(); i++)
+    {
+
+        if (arr[i].name == target)
+        {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
+// Coded by Riyad from here
 // Show Instructions
 void showInstructions()
 {
 }
 
-// Coded by Riyad from here
 //  Play Game
 void playGame()
 {
