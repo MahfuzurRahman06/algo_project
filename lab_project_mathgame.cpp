@@ -158,7 +158,6 @@ void merge(vector<PlayerRecord> &arr, int left, int mid, int right)
 // Merge Sort
 void mergeSort(vector<PlayerRecord> &arr, int left, int right)
 {
-
     if (left >= right)
     {
         return;
@@ -191,8 +190,18 @@ int linearSearch(const vector<PlayerRecord> &arr, string target)
 // Show Instructions
 void showInstructions()
 {
+    cout << "\n========== INSTRUCTIONS ==========\n";
+
+    cout << "1. There are 10 questions.\n";
+    cout << "2. Choose Easy, Medium or Hard.\n";
+    cout << "3. Correct answer gives +10 points.\n";
+    cout << "4. Wrong answer deducts 5 points.\n";
+    cout << "5. Minimum score is 0.\n";
+    cout << "6. Score 60 or above to win.\n";
+    cout << "7. Operations: +, -, *, /\n";
 }
 
+// Coded by Riyad from here
 //  Play Game
 void playGame()
 {
@@ -333,6 +342,59 @@ void playGame()
 // Show Leaderboard
 void showLeaderboard()
 {
+    if (leaderboard.empty())
+    {
+        cout << "\nNo player records available!\n";
+        return;
+    }
+
+    vector<PlayerRecord> sorted = leaderboard;
+
+    // Sort using Merge Sort
+    mergeSort(sorted, 0, (int)sorted.size() - 1);
+
+    cout << "\n========== LEADERBOARD ==========\n";
+
+    cout << left << setw(6) << "Rank"
+         << setw(20) << "Player"
+         << setw(12) << "Score"
+         << setw(12) << "Correct"
+         << "Wrong\n";
+
+    cout << "------------------------------------------------\n";
+
+    for (int i = 0; i < (int)sorted.size(); i++)
+    {
+
+        cout << left << setw(6) << i + 1
+             << setw(20) << sorted[i].name
+             << setw(12) << sorted[i].score
+             << setw(12) << sorted[i].correct
+             << sorted[i].wrong << "\n";
+    }
+
+    // Search Player using Linear Search
+    string target;
+
+    cout << "\nEnter Player Name to Search: ";
+    cin >> ws;
+    getline(cin, target);
+
+    int index = linearSearch(leaderboard, target);
+
+    if (index != -1)
+    {
+
+        cout << "\nPlayer Found!\n";
+        cout << "Name: " << leaderboard[index].name << "\n";
+        cout << "Score: " << leaderboard[index].score << "\n";
+        cout << "Correct Answers: " << leaderboard[index].correct << "\n";
+        cout << "Wrong Answers: " << leaderboard[index].wrong << "\n";
+    }
+    else
+    {
+        cout << "\nPlayer Not Found!\n";
+    }
 }
 
 // Coded by Tahmid from here
@@ -356,7 +418,7 @@ void showMenu()
         cout << "Enter Choice: ";
 
         choice = readInteger();
-      
+
         switch (choice)
         {
 
