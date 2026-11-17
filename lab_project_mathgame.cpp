@@ -356,6 +356,29 @@ void showMenu()
         cout << "Enter Choice: ";
 
         choice = readInteger();
+      
+        switch (choice)
+        {
+
+        case 1:
+            playGame();
+            break;
+
+        case 2:
+            showLeaderboard();
+            break;
+
+        case 3:
+            showInstructions();
+            break;
+
+        case 4:
+            cout << "\nThank you for playing!\n";
+            return;
+
+        default:
+            cout << "\nInvalid Choice! Try Again.\n";
+        }
     }
 }
 
