@@ -10,7 +10,8 @@ const int WRONG_PENALTY = 5;
 const int WINNING_SCORE = 60;
 
 // Question Structure
-struct Question {
+struct Question
+{
     int num1;
     int num2;
     char op;
@@ -18,7 +19,8 @@ struct Question {
 };
 
 // Player Structure
-struct PlayerRecord {
+struct PlayerRecord
+{
     string name;
     int score;
     int correct;
@@ -31,39 +33,44 @@ mt19937 rng(random_device{}());
 vector<PlayerRecord> leaderboard;
 
 // Generate Random Number
-int randomInt(int low, int high) {
+int randomInt(int low, int high)
+{
     uniform_int_distribution<int> dist(low, high);
     return dist(rng);
-
 }
 
 // Input Validation
-int readInteger() {
+int readInteger()
+{
     int value;
 
-    while (!(cin >> value)) {
+    while (!(cin >> value))
+    {
         cout << "Invalid input! Enter a number: ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
     return value;
-
 }
 
 // Generate Question
-Question generateQuestion(int difficulty) {
+Question generateQuestion(int difficulty)
+{
     int low, high;
 
-    if (difficulty == 1) {
+    if (difficulty == 1)
+    {
         low = 1;
         high = 10;
     }
-    else if (difficulty == 2) {
+    else if (difficulty == 2)
+    {
         low = 10;
         high = 50;
     }
-    else {
+    else
+    {
         low = 20;
         high = 100;
     }
@@ -75,21 +82,26 @@ Question generateQuestion(int difficulty) {
     q.num1 = randomInt(low, high);
     q.num2 = randomInt(low, high);
 
-    if (q.op == '+') {
+    if (q.op == '+')
+    {
         q.answer = q.num1 + q.num2;
     }
-    else if (q.op == '-') {
+    else if (q.op == '-')
+    {
 
-        if (q.num1 < q.num2) {
+        if (q.num1 < q.num2)
+        {
             swap(q.num1, q.num2);
         }
 
         q.answer = q.num1 - q.num2;
     }
-    else if (q.op == '*') {
+    else if (q.op == '*')
+    {
         q.answer = q.num1 * q.num2;
     }
-    else {
+    else
+    {
         // Exact Division
         q.num2 = randomInt(1, high);
         q.answer = randomInt(1, high);
@@ -97,34 +109,32 @@ Question generateQuestion(int difficulty) {
     }
 
     return q;
-
 }
 
-
-// Coded by Wasi from here 
+// Coded by Wasi from here
 // Merge Function
-void merge(vector<PlayerRecord>& arr, int left, int mid, int right) {
-    
+void merge(vector<PlayerRecord> &arr, int left, int mid, int right)
+{
 }
 // Merge Sort
-void mergeSort(vector<PlayerRecord>& arr, int left, int right) {
-    
+void mergeSort(vector<PlayerRecord> &arr, int left, int right)
+{
 }
 
 // Linear Search
-int linearSearch(const vector<PlayerRecord>& arr, string target) {
-    
+int linearSearch(const vector<PlayerRecord> &arr, string target)
+{
 }
 
 // Show Instructions
-void showInstructions() {
-    
+void showInstructions()
+{
 }
 
-
-//Coded by Riyad from here 
-// Play Game
-void playGame() {
+// Coded by Riyad from here
+//  Play Game
+void playGame()
+{
     string name;
     int difficulty;
 
@@ -132,7 +142,8 @@ void playGame() {
     cin >> ws;
     getline(cin, name);
 
-    if (name.empty()) {
+    if (name.empty())
+    {
         cout << "Name cannot be empty!\n";
         return;
     }
@@ -145,7 +156,8 @@ void playGame() {
     cout << "Enter Choice: ";
     difficulty = readInteger();
 
-    while (difficulty < 1 || difficulty > 3) {
+    while (difficulty < 1 || difficulty > 3)
+    {
         cout << "Invalid choice! Select 1, 2 or 3: ";
         difficulty = readInteger();
     }
@@ -159,7 +171,8 @@ void playGame() {
     cout << "\n========== GAME START ==========\n";
 
     // Question Loop
-    for (int i = 1; i <= TOTAL_QUESTIONS; i++) {
+    for (int i = 1; i <= TOTAL_QUESTIONS; i++)
+    {
 
         Question q = generateQuestion(difficulty);
 
@@ -173,14 +186,16 @@ void playGame() {
 
         int userAnswer = readInteger();
 
-        if (userAnswer == q.answer) {
+        if (userAnswer == q.answer)
+        {
 
             cout << "Correct Answer!\n";
 
             score += CORRECT_POINTS;
             correct++;
         }
-        else {
+        else
+        {
 
             cout << "Wrong Answer!\n";
 
@@ -188,7 +203,8 @@ void playGame() {
 
             score -= WRONG_PENALTY;
 
-            if (score < 0) {
+            if (score < 0)
+            {
                 score = 0;
             }
 
@@ -212,10 +228,12 @@ void playGame() {
     cout << fixed << setprecision(2);
     cout << "Accuracy: " << accuracy << "%\n";
 
-    if (score >= WINNING_SCORE) {
+    if (score >= WINNING_SCORE)
+    {
         cout << "\nCongratulations! YOU WIN!\n";
     }
-    else {
+    else
+    {
         cout << "\nBetter Luck Next Time!\n";
     }
 
@@ -226,7 +244,8 @@ void playGame() {
 
     int count = TOTAL_QUESTIONS;
 
-    while (!temp.empty()) {
+    while (!temp.empty())
+    {
 
         Question q = temp.top();
 
@@ -251,17 +270,18 @@ void playGame() {
     cout << "\nYour result has been added to Leaderboard!\n";
 }
 // Show Leaderboard
-void showLeaderboard() {
-    
+void showLeaderboard()
+{
 }
 
-
-//Coded by Tahmid from here
-// Main Menu
-void showMenu() {
+// Coded by Tahmid from here
+//  Main Menu
+void showMenu()
+{
     int choice;
 
-    while (true) {
+    while (true)
+    {
 
         cout << "\n================================\n";
         cout << "        MATH CHALLENGE\n";
@@ -275,13 +295,34 @@ void showMenu() {
         cout << "Enter Choice: ";
 
         choice = readInteger();
-        
-    }
+        switch (choice)
+        {
 
+        case 1:
+            playGame();
+            break;
+
+        case 2:
+            showLeaderboard();
+            break;
+
+        case 3:
+            showInstructions();
+            break;
+
+        case 4:
+            cout << "\nThank you for playing!\n";
+            return;
+
+        default:
+            cout << "\nInvalid Choice! Try Again.\n";
+        }
+    }
 }
 
 // Main Function
-int main() {
+int main()
+{
 
     showMenu();
 
